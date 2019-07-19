@@ -20,8 +20,7 @@ from faker import Faker
 class ItUsGen(object):
     def __init__(self) -> None:
         """
-        Generates random italo-american names using faker. It only generates "simple" names, comprised of name and
-        surname each one composed by a single word (no titles too).
+        Generates random italo-american names using faker.
         """
         super().__init__()
         self.fakeIt = Faker('it_IT')
@@ -33,19 +32,15 @@ class ItUsGen(object):
         Creates two italo-american names
         :return: tuple of strings (name1, name2)
         """
-        list_it = []
-        list_us = []
 
-        # We discard composite names, like "Luca De Angelis" or "Sig.ra Marta Rossi"
-        while len(list_it) != 2 or len(list_us) != 2:
-            name_it = self.fakeIt.name()
-            name_us = self.fakeUs.name()
+        name_it = self.fakeIt.first_name()
+        name_us = self.fakeUs.first_name()
 
-            list_it = name_it.split()
-            list_us = name_us.split()
+        last_name_it = self.fakeIt.last_name()
+        last_name_us = self.fakeUs.last_name()
 
-            name1 = list_it[0] + ' ' + list_us[1]
-            name2 = list_us[0] + ' ' + list_it[1]
+        name1 = name_it + ' ' + last_name_us
+        name2 = name_us + ' ' + last_name_it
 
         return name1, name2
 
